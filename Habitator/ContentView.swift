@@ -57,7 +57,7 @@ struct ContentView:View{
                 }
                 .tag(1)
          
-            Text("INSERT PROGRESS VIEW")
+            ProgressView()
                 .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "chart.bar")
