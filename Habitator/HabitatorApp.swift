@@ -11,7 +11,7 @@ import SwiftUI
 struct HabitatorApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(habits:testHabits)
         }
     }
 }

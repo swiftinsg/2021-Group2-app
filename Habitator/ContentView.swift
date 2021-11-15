@@ -36,10 +36,30 @@ struct Habit{
     var name: String
 }
 
+let testHabits=[
+    Habit(
+        object: ObjectWord(singular: "apple",plural:"apples"),
+        action: "eat",
+        name: "Eat apples"
+    ),
+    Habit(
+        object: ObjectWord(singular: "chinese propaganda",plural:"chinese propaganda"),
+        action: "spread",
+        name: "Read more chinese propaganda"
+    ),
+    Habit(
+        object: ObjectWord(singular: "one-hand salute",plural:"one-hand salutes"),
+        action: "do",
+        name: "Do more one-hand salutes"
+    )
+]
+
 struct ContentView:View{
     @State private var selectedHabit: Habit?=testHabits[0]
     @State private var tabSelection: Int=1
+    @State var habits: [Habit]
     var appPurple=UIColor(rgb: 0x766CD1)
+    var lightAppPurple=UIColor(rgb: 0x9498FF)
     var body: some View {
         TabView(selection: $tabSelection) {
             Text("[INSERT HOME VIEW]")
@@ -49,7 +69,7 @@ struct ContentView:View{
                 }
                 .tag(0)
          
-            HabitsView(currentHabit: $selectedHabit)
+            HabitsView(currentHabit: $selectedHabit,habits: $habits)
                 .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "magnifyingglass")
@@ -80,6 +100,8 @@ struct ContentView:View{
 struct ContentView_Previews: PreviewProvider {
     @State var tabSelection: Int=1
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView(habits:testHabits)
+        }
     }
 }
