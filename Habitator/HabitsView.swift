@@ -20,15 +20,10 @@ struct HabitListItemView: View{
         }
     }
 }
-let testHabits=[
-    Habit(
-        object: ObjectWord(singular: "apple",plural:"apples"),
-        action: "eat",
-        name: "Eat apples"
-    )
-]
+
 struct HabitsView: View {
     @Binding var currentHabit: Habit?
+    @Binding var habits: [Habit]
     var body: some View {
         List{
             HabitListItemView(
