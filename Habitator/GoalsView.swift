@@ -26,7 +26,7 @@ struct GoalsView: View {
     var body: some View {
         if ((currentHabit) != nil){
             List{
-                ForEach(!currentHabit.goals,id: \.name){ goal in goals
+                ForEach(currentHabit!.goals,id: \.name){ goal in
                     //goal is in goal
                 }
             }
