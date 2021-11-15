@@ -17,6 +17,7 @@ struct HomeView: View {
                     .foregroundColor(.black)
                     .frame(width: 15)
                 Text("klik")
+                    .font(.system(size:100))
                     .offset(x: 0, y: 10)
             }
             
