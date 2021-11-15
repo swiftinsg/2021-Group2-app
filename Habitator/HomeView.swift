@@ -11,7 +11,24 @@ struct HomeView: View {
     @Binding var currentHabit: Habit?
     @Binding var habits: [Habit]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            HStack(alignment: . bottom, spacing: -10) {
+                Rectangle()
+                    .foregroundColor(.black)
+                    .frame(width: 15)
+                Text("klik")
+                    .font(.system(size:100))
+                    .offset(x: 0, y: 10)
+            }
+            
+            Button("Raise Flag") {
+            
+            }
+            .padding()
+            
+           
+        }
     }
-}
+    }
+
 
