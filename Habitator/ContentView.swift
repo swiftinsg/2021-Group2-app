@@ -88,7 +88,7 @@ struct ContentView:View{
                     Text("Habits")
                 }
                 .tag(1)
-         
+
             ProgressView()
                 .tabItem {
                     Image(systemName: "chart.bar")
@@ -96,8 +96,7 @@ struct ContentView:View{
                 }
                 .tag(2)
          
-            Text("[INSERT GOALS VIEW]")
-                .font(.system(size: 30, weight: .bold, design: .rounded))
+            GoalsView(currentHabit: $selectedHabit,habits: $habits)
                 .tabItem {
                     Image(systemName: "target")
                     Text("Goals")

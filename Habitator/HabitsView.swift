@@ -58,7 +58,7 @@ struct HabitsView: View {
                                 plural: "undefined"
                             ),
                             action: "undefined",
-                            name: placeholderText
+                            name: placeholderText, goals: []
                         )]
                         placeholderText=""
                     }

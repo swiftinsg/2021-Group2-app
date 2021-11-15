@@ -10,7 +10,7 @@ import SwiftUI
 struct ProgressView: View{
     @State var Progress: Progress
     var body: some View {
-        VStack(){
+        VStack{
             Text("Progress")
                 .font(.system(size: 50, weight: .bold))
         }
