@@ -26,10 +26,12 @@ struct HabitsView: View {
     @Binding var habits: [Habit]
     var body: some View {
         List{
-            HabitListItemView(
-                habit: testHabits[0],
-                selected: $currentHabit
-            )
+            ForEach(0..<habits.count){ index in
+                HabitListItemView(
+                    habit: testHabits[index],
+                    selected: $currentHabit
+                )
+            }
         }
     }
 }
