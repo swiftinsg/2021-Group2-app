@@ -30,7 +30,8 @@ struct ObjectWord{
     var plural: String
 }
 
-struct Habit{
+struct Habit:Identifiable{
+    var id=UUID()
     var object: ObjectWord
     var action: String
     var name: String
@@ -77,7 +78,6 @@ struct ContentView:View{
                 .tag(1)
          
             ProgressView()
-                .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "chart.bar")
                     Text("Progress")
