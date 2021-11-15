@@ -55,7 +55,7 @@ struct ContentView: View {
                 }
                 .tag(1)
          
-            Text("[INSERT PROGRESS VIEW]")
+            Text("INSERT PROGRESS VIEW")
                 .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "chart.bar")
@@ -76,6 +76,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    @State var tabSelection: Int=1
     static var previews: some View {
         ContentView()
     }
