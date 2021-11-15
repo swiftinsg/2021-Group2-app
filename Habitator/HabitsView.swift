@@ -11,11 +11,13 @@ struct HabitListItemView: View{
     @State var habit: Habit
     @Binding var selected: Habit?
     var body: some View {
-        HStack(){
-            Text(habit.name)
-            if ((selected != nil) && selected!.name==habit.name){
-                Spacer()
-                Image(uiImage: UIImage(systemName:"checkmark")!)
+        Button(action: {selected=habit}){
+            HStack(){
+                Text(habit.name)
+                if ((selected != nil) && selected!.name==habit.name){
+                    Spacer()
+                    Image(uiImage: UIImage(systemName:"checkmark")!)
+                }
             }
         }
     }

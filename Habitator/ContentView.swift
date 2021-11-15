@@ -55,7 +55,7 @@ let testHabits=[
 ]
 
 struct ContentView:View{
-    @State private var selectedHabit: Habit?=testHabits[0]
+    @State private var selectedHabit: Habit?=nil
     @State private var tabSelection: Int=1
     @State var habits: [Habit]
     var appPurple=UIColor(rgb: 0x766CD1)
@@ -70,7 +70,6 @@ struct ContentView:View{
                 .tag(0)
          
             HabitsView(currentHabit: $selectedHabit,habits: $habits)
-                .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                     Text("Habits")
