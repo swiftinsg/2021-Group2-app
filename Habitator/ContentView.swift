@@ -25,21 +25,23 @@ extension UIColor {
    }
 }
 
-struct ActionWord{
+struct ObjectWord{
     var singular: String
-    var Plural: String
+    var plural: String
 }
 
 struct Habit{
-    var verb: String
-    var action: ActionWord
+    var object: ObjectWord
+    var action: String
+    var name: String
 }
 
-struct ContentView: View {
-    var selectedHabit: Habit?
+struct ContentView:View{
+    @State private var selectedHabit: Habit?=testHabits[0]
+    @State private var tabSelection: Int=1
     var appPurple=UIColor(rgb: 0x766CD1)
     var body: some View {
-        TabView() {
+        TabView(selection: $tabSelection) {
             Text("[INSERT HOME VIEW]")
                 .tabItem {
                     Image(systemName: "house.fill")
@@ -47,7 +49,7 @@ struct ContentView: View {
                 }
                 .tag(0)
          
-            Text("[INSERT HABITS VIEW]")
+            HabitsView(currentHabit: $selectedHabit)
                 .font(.system(size: 30, weight: .bold, design: .rounded))
                 .tabItem {
                     Image(systemName: "magnifyingglass")
