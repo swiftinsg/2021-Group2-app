@@ -30,28 +30,40 @@ struct ObjectWord{
     var plural: String
 }
 
+struct Goal{
+    var name: String
+    func isAcheived(habit: Habit)->Bool{
+        //do checks when its done
+        return true
+    }
+}
+
 struct Habit:Identifiable{
     var id=UUID()
     var object: ObjectWord
     var action: String
     var name: String
+    var goals: [Goal]
 }
 
 let testHabits=[
     Habit(
         object: ObjectWord(singular: "apple",plural:"apples"),
         action: "eat",
-        name: "Eat apples"
+        name: "Eat apples",
+        goals: [Goal(name: "lmao"),Goal(name: "e")]
     ),
     Habit(
         object: ObjectWord(singular: "chinese propaganda",plural:"chinese propaganda"),
         action: "spread",
-        name: "Read more chinese propaganda"
+        name: "Read more chinese propaganda",
+        goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "a")]
     ),
     Habit(
         object: ObjectWord(singular: "one-hand salute",plural:"one-hand salutes"),
         action: "do",
-        name: "Do more one-hand salutes"
+        name: "Do more one-hand salutes",
+        goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "GAMES")]
     )
 ]
 
