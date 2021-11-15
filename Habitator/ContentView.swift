@@ -62,7 +62,7 @@ struct ContentView:View{
     var lightAppPurple=UIColor(rgb: 0x9498FF)
     var body: some View {
         TabView(selection: $tabSelection) {
-            Text("[INSERT HOME VIEW]")
+            HomeView(currentHabit: $selectedHabit,habits: $habits)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
