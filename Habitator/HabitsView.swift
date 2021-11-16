@@ -10,6 +10,7 @@ import SwiftUI
 struct HabitListItemView: View{
     @State var habit: Habit
     @Binding var selected: Habit?
+    @Binding var habits: [Habit]
     var body: some View {
         Button(action: {selected=habit}){
             HStack(){
@@ -38,16 +39,26 @@ struct HabitsView: View {
     @Binding var currentHabit: Habit?
     @Binding var habits: [Habit]
     @State var placeholderText=""
+    @State var editing=false
     var body: some View {
         VStack{
-            Text("Habits")
-                .font(.system(size: 30, weight: .bold, design: .rounded))
+            ZStack{
+                Text("Habits")
+                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                HStack{
+                    Button("Edit"){
+                        editing = !editing
+                    }.padding(.leading)
+                    Spacer()
+                }
+            }
             Divider()
             List{
                 ForEach(habits,id: \.name){ habit in
                     HabitListItemView(
                         habit: habit,
-                        selected: $currentHabit
+                        selected: $currentHabit,
+                        habits: $habits
                     )
                 }
                 Button(action: {
