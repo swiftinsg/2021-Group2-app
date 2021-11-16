@@ -58,7 +58,7 @@ struct GoalsView: View {
                     HabitListItemView(
                         habit: habit,
                         selected: $currentHabit,
-                        habits: $habits
+                        habits: $habit
                     )
                 }
                 Button(action: {
