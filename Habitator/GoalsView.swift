@@ -76,7 +76,7 @@ struct GoalsView: View {
                 }){
                     PlaceholderHabitView(
                         habits: $habits,
-                        text: $placeholderText
+                        text: placeholderText
                     )
                 }
             }
