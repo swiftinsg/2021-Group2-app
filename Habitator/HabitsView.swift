@@ -7,14 +7,26 @@
 
 import SwiftUI
 
+
+
 struct HabitListItemView: View{
     @State var habit: Habit
     @Binding var selected: Habit?
     @Binding var habits: [Habit]
+    @Binding var editing: Bool
     var body: some View {
-        Button(action: {selected=habit}){
+        Button(action: {
+            if (!editing){
+                selected=habit
+            }
+        }){
             HStack(){
-                Text(habit.name)
+                if (!editing){
+                    Text(habit.name)
+                }else{
+                    TextField(habit.name, text: $habit.name)
+                        .opacity(0.7)
+                }
                 if ((selected != nil) && selected!.name==habit.name){
                     Spacer()
                     Image(uiImage: UIImage(systemName:"checkmark")!)
@@ -26,12 +38,26 @@ struct HabitListItemView: View{
 
 struct PlaceholderHabitView: View{
     @Binding var habits:[Habit]
-    @Binding var text: String
+    @State var text=""
     var body: some View {
-        TextField(
-            "Type To Enter",
-            text: $text
-        ).opacity(0.5)
+        Button(action: {
+            if (!(text=="")){
+                habits+=[Habit(
+                    object: ObjectWord(
+                        singular: "undefined",
+                        plural: "undefined"
+                    ),
+                    action: "undefined",
+                    name: text, goals: []
+                )]
+                text=""
+            }
+        }){
+            TextField(
+                "Type To Enter",
+                text: $text
+            ).opacity(0.5)
+        }
     }
 }
 
@@ -48,6 +74,7 @@ struct HabitsView: View {
                 HStack{
                     Button("Edit"){
                         editing = !editing
+                        currentHabit=nil
                     }.padding(.leading)
                     Spacer()
                 }
@@ -58,25 +85,13 @@ struct HabitsView: View {
                     HabitListItemView(
                         habit: habit,
                         selected: $currentHabit,
-                        habits: $habits
+                        habits: $habits,
+                        editing: $editing
                     )
                 }
-                Button(action: {
-                    if (!(placeholderText=="")){
-                        habits+=[Habit(
-                            object: ObjectWord(
-                                singular: "undefined",
-                                plural: "undefined"
-                            ),
-                            action: "undefined",
-                            name: placeholderText, goals: []
-                        )]
-                        placeholderText=""
-                    }
-                }){
+                if (editing){
                     PlaceholderHabitView(
-                        habits: $habits,
-                        text: $placeholderText
+                        habits: $habits
                     )
                 }
             }
