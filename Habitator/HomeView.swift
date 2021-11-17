@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @Binding var currentHabit: Habit?
     @Binding var habits: [Habit]
-    var counter = 0
+    @State var counter = 0
     
     var body: some View {
         VStack{
@@ -18,7 +18,7 @@ struct HomeView: View {
             
                 Text("You pressed\(counter)times")
                 Button ("Add Progress") {
-                counter + 1
+                counter = counter + 1
                 }
             
            
