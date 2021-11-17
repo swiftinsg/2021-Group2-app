@@ -25,6 +25,10 @@ extension UIColor {
    }
 }
 
+struct ProgressRecord{
+    var time=Date()
+}
+
 struct ObjectWord{
     var singular: String
     var plural: String
@@ -44,6 +48,7 @@ struct Habit:Identifiable{
     var action: String
     var name: String
     var goals: [Goal]
+    var records: [ProgressRecord]
 }
 
 let testHabits=[
@@ -51,19 +56,22 @@ let testHabits=[
         object: ObjectWord(singular: "apple",plural:"apples"),
         action: "eat",
         name: "Eat apples",
-        goals: [Goal(name: "lmao"),Goal(name: "e")]
+        goals: [Goal(name: "lmao"),Goal(name: "e")],
+        records:[]
     ),
     Habit(
         object: ObjectWord(singular: "chinese propaganda",plural:"chinese propaganda"),
         action: "spread",
         name: "Read more chinese propaganda",
-        goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "a")]
+        goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "a")],
+        records:[]
     ),
     Habit(
         object: ObjectWord(singular: "one-hand salute",plural:"one-hand salutes"),
         action: "do",
         name: "Do more one-hand salutes",
-        goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "GAMES")]
+        goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "GAMES")],
+        records:[]
     )
 ]
 
