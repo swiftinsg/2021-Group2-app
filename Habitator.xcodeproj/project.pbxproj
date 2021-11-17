@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E057E6C274357800084BBEE /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E057E6B274357800084BBEE /* File.swift */; };
 		2ED6A41227420A9D00FE9793 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CA03B4FB2742079900FE193F /* HabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA03B4FA2742079900FE193F /* HabitsView.swift */; };
 		CA03B5062742184F00FE193F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA03B5052742184F00FE193F /* HomeView.swift */; };
@@ -37,7 +36,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2E057E6B274357800084BBEE /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		2ED6A4132742141400FE9793 /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		CA03B4FA2742079900FE193F /* HabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsView.swift; sourceTree = "<group>"; };
 		CA03B5052742184F00FE193F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 				CAAC046F273E9D8000C95093 /* Info.plist */,
 				CAAC046C273E9D8000C95093 /* Preview Content */,
 				CA03B4FA2742079900FE193F /* HabitsView.swift */,
-				2E057E6B274357800084BBEE /* File.swift */,
 				CA03B5052742184F00FE193F /* HomeView.swift */,
 			);
 			path = Habitator;
@@ -272,7 +269,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAAC0469273E9D7E00C95093 /* ContentView.swift in Sources */,
-				2E057E6C274357800084BBEE /* File.swift in Sources */,
 				CA03B4FB2742079900FE193F /* HabitsView.swift in Sources */,
 				CAAC0467273E9D7E00C95093 /* HabitatorApp.swift in Sources */,
 				CA03B5062742184F00FE193F /* HomeView.swift in Sources */,

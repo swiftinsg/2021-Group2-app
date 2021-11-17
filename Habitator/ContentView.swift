@@ -96,15 +96,6 @@ struct ContentView:View{
                 }
                 .tag(2)
          
-            GoalsView(currentHabit: $selectedHabit,habits: $habits)
-                .tabItem {
-                    Image(systemName: "target")
-                    Text("Goals")
-                }
-                .tag(3)
-        }
-        .accentColor(Color(appPurple))
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -113,5 +104,7 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             ContentView(habits:testHabits)
         }
+    }
+}
     }
 }
