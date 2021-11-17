@@ -95,7 +95,8 @@ struct ContentView:View{
                     Text("Progress")
                 }
                 .tag(2)
-         
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -104,7 +105,5 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             ContentView(habits:testHabits)
         }
-    }
-}
     }
 }
