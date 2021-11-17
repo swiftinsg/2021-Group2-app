@@ -17,10 +17,10 @@ struct HomeView: View {
             Text("Home")
                 .font(.system(size: 30, weight: .bold, design: .rounded))
             Divider()
-            Text("Number of habit done goes here")
-                .padding()
                 Text("\(counter)")
                 .padding()
+                .font(.system(size: 35, weight: .bold, design: .rounded))
+                .foregroundColor(.purple)
             ZStack {
             RoundedRectangle(cornerRadius: 15)
                     .frame(width: 250, height: 100)
