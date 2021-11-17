@@ -29,7 +29,7 @@ struct HomeView: View {
                     RoundedRectangle(cornerRadius: 15)
                         .frame(width: 250, height: 100)
                         .foregroundColor(.purple)
-                        .opacity(0.3)
+                        .opacity(0.2)
                 }
             } //need to make it FAT
                 .foregroundColor(.purple)
