@@ -10,19 +10,21 @@ import SwiftUI
 struct HomeView: View {
     @Binding var currentHabit: Habit?
     @Binding var habits: [Habit]
-    var counter = 0
+    @State var counter = 0
     
     var body: some View {
         VStack{
-             
-            
-                Text("You pressed\(counter)times")
+            Text("Number of habit dones goes here")
+                .padding()
+                Text("\(counter)")
+                .padding()
                 Button ("Add Progress") {
-                counter + 1
+                counter = counter + 1
                 }
-            
-           
-        
+                .background(Color.purple)
+                .foregroundColor(.white)
+                .padding()
+            Spacer()
     }
 }
 
