@@ -81,7 +81,7 @@ struct HabitsView: View {
             }
             Divider()
             List{
-                ForEach($habits,id: \.name){ $habit in
+                ForEach(habits,id: \.name){ habit in
                     HabitListItemView(
                         habit: habit,
                         selected: $currentHabit,
