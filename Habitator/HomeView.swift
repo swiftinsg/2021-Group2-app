@@ -14,17 +14,19 @@ struct HomeView: View {
     
     var body: some View {
         VStack{
-            Text("Number of habit dones goes here")
+            Text("Number of habit done goes here")
                 .padding()
                 Text("\(counter)")
                 .padding()
                 Button ("Add Progress") {
                 counter = counter + 1
-                }
+                } //need to make it FAT
                 .background(Color.purple)
                 .foregroundColor(.white)
                 .padding()
             Spacer()
+            Text("Motivation stuff here!!!")
+                .padding()
     }
 }
 
