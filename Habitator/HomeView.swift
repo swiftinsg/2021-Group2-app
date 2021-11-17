@@ -42,8 +42,6 @@ struct HomeView: View {
             Spacer()
             Text("Motivation stuff here!!!")
                 .padding()
+        }
     }
-}
-
-
 }

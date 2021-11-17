@@ -24,6 +24,17 @@ struct HabitListItemView: View{
                 if (!editing){
                     Text(habit.name)
                 }else{
+                    Button(action:{
+                        for x in 0..<habits.count{
+                            if (habits[x].name==habit.name){
+                                habits.remove(at:x)
+                                break
+                            }
+                        }
+                    }){
+                        Image(uiImage: UIImage(systemName:"trash")!)
+                            .padding(.trailing)
+                    }
                     TextField(habit.name, text: $habit.name)
                         .opacity(0.7)
                 }
