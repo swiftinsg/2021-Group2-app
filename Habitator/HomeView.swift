@@ -17,10 +17,12 @@ struct HomeView: View {
             Text("Home")
                 .font(.system(size: 30, weight: .bold, design: .rounded))
             Divider()
-            Text("Number of habit done goes here")
+
                 .padding()
                 Text("\(counter)")
                 .padding()
+                .font(.system(size: 38, weight: .bold, design: .rounded))
+                .foregroundColor(.purple)
             Button (action:{
                 counter = counter + 1
             }) {
@@ -29,7 +31,7 @@ struct HomeView: View {
                     RoundedRectangle(cornerRadius: 15)
                         .frame(width: 250, height: 100)
                         .foregroundColor(.purple)
-                        .opacity(0.3)
+                        .opacity(0.2)
                 }
             } //need to make it FAT
                 .foregroundColor(.purple)
