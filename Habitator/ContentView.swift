@@ -89,7 +89,7 @@ struct ContentView:View{
                     Text("Home")
                 }
                 .tag(0)
-         
+
             HabitsView(currentHabit: $selectedHabit,habits: $habits)
                 .tabItem {
                     Image(systemName: "magnifyingglass")
@@ -115,3 +115,4 @@ struct ContentView_Previews: PreviewProvider {
         }
     }
 }
+

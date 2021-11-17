@@ -21,19 +21,21 @@ struct HomeView: View {
                 .padding()
                 Text("\(counter)")
                 .padding()
-            ZStack {
-            RoundedRectangle(cornerRadius: 15)
-                    .frame(width: 250, height: 100)
-                    .foregroundColor(.purple)
-                    .opacity(0.3)
-                Button ("Add Progress") {
+            Button (action:{
                 counter = counter + 1
-                } //need to make it FAT
+            }) {
+                ZStack {
+                    Text("Add Progress")
+                    RoundedRectangle(cornerRadius: 15)
+                        .frame(width: 250, height: 100)
+                        .foregroundColor(.purple)
+                        .opacity(0.3)
+                }
+            } //need to make it FAT
                 .foregroundColor(.purple)
                 .frame(width: 300, height: 200)
                 .font(.largeTitle)
                 .padding()
-            }
             Spacer()
             Text("Motivation stuff here!!!")
                 .padding()
