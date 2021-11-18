@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @Binding var currentHabit: Habit?
     @Binding var habits: [Habit]
+    @State var motivCount = 0
     var motivation = ["Come on, just a bit more, you're almost there!",
                       "YOU'RE SO CLOSE, DON'T GIVE UP NOW",
                       "You can do better than this!!!",
@@ -33,13 +34,14 @@ struct HomeView: View {
                       "Just reach 69420, there'll definitely be something for you :)",
                       "You know you want to click it till 69 :)",
                       "SPAM THAT BUTTON(only if you actually did the habit)",
-                      "Us, makes an app to help with habits: You are here to make habits right? You: 🙂 Us: R-right?",
+                      "Us, makes an app to help with habits: You are here to make habits right? You: :) Us: R-right?",
                       "Make that heatmap go stonks",
                       "Remember to pace yourself properly",
                       "You can always reward yourself after completing your goals!",
                       "You'll pick up the habit in no time!",
                       "Habwitwatow at yow suwvice, pwease make yow habwit, don't give uwp meow!",
                       "That button is asking to be clicked"]
+    private let timer = Timer.publish(every: 600, on: .main, in: .common).autoconnect()
     
     var body: some View {
         if (!(currentHabit==nil)){
@@ -67,7 +69,10 @@ struct HomeView: View {
                     .foregroundColor(.purple)
                     .font(.largeTitle)
                 Spacer()
-                Text("Motivation stuff here!!!")
+                Text("\(motivation[motivCount])")
+                    .onReceive(timer) { _ in
+                        motivCount = motivCount + 1
+                    }
                     .padding()
             }
         }else{
