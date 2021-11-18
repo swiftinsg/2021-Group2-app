@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @Binding var currentHabit: Habit?
     @Binding var habits: [Habit]
-    @State var motivCount = 0
+    @State var motivCount = Int.random(in: 1..<30)
     var motivation = ["Come on, just a bit more, you're almost there!",
                       "YOU'RE SO CLOSE, DON'T GIVE UP NOW",
                       "You can do better than this!!!",
