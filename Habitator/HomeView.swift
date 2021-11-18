@@ -41,7 +41,7 @@ struct HomeView: View {
                       "You'll pick up the habit in no time!",
                       "Habwitwatow at yow suwvice, pwease make yow habwit, don't give uwp meow!",
                       "That button is asking to be clicked"]
-    private let timer = Timer.publish(every: 600, on: .main, in: .common).autoconnect()
+    private let timer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
     
     var body: some View {
         if (!(currentHabit==nil)){
