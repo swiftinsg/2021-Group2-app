@@ -34,6 +34,11 @@ struct ObjectWord{
     var plural: String
 }
 
+struct ActionWord{
+    var past: String
+    var present: String
+}
+
 struct Goal{
     var name: String
     func isAcheived(habit: Habit)->Bool{
@@ -45,30 +50,39 @@ struct Goal{
 struct Habit:Identifiable{
     var id=UUID()
     var object: ObjectWord
-    var action: String
+    var action: ActionWord
     var name: String
     var goals: [Goal]
     var records: [ProgressRecord]
+    func progress(from: Date,to: Date)->Int{
+        var count=0
+        for progress in records{
+            if (progress.time>from && progress.time<to){
+                count+=1
+            }
+        }
+        return count
+    }
 }
 
 let testHabits=[
     Habit(
         object: ObjectWord(singular: "apple",plural:"apples"),
-        action: "eat",
+        action: ActionWord(past:"eaten",present:"eat"),
         name: "Eat apples",
         goals: [Goal(name: "lmao"),Goal(name: "e")],
         records:[]
     ),
     Habit(
         object: ObjectWord(singular: "chinese propaganda",plural:"chinese propaganda"),
-        action: "spread",
+        action: ActionWord(past: "spreaded",present:"spread"),
         name: "Read more chinese propaganda",
         goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "a")],
         records:[]
     ),
     Habit(
         object: ObjectWord(singular: "one-hand salute",plural:"one-hand salutes"),
-        action: "do",
+        action: ActionWord(past:"done",present:"do"),
         name: "Do more one-hand salutes",
         goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "GAMES")],
         records:[]

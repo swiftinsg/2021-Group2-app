@@ -55,10 +55,10 @@ struct PlaceholderHabitView: View{
             if (!(text=="")){
                 habits+=[Habit(
                     object: ObjectWord(
-                        singular: "undefined",
-                        plural: "undefined"
+                        singular: "singular",
+                        plural: "plural"
                     ),
-                    action: "undefined",
+                    action: ActionWord(past:"Past tense",present:"Present tense"),
                     name: text, goals: [],
                     records:[]
                 )]

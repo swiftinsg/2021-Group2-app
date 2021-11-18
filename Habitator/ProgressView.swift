@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProgressView: View{
-    @State var Progress: Progress
     var body: some View {
         VStack{
             Text("Progress")
@@ -18,7 +17,6 @@ struct ProgressView: View{
 }
  
 struct ProgressView: View {
-    @Binding var currentProgress: Progress?
     var body: some View {
         List {
             ProgressView()
