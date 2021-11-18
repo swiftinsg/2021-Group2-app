@@ -91,7 +91,7 @@ let testHabits=[
 
 struct ContentView:View{
     @State private var selectedHabit: Habit?=nil
-    @State private var tabSelection: Int=1
+    @State private var tabSelection: Int=0
     @State var habits: [Habit]
     var appPurple=UIColor(rgb: 0x766CD1)
     var lightAppPurple=UIColor(rgb: 0x9498FF)
