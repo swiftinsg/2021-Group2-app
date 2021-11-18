@@ -72,6 +72,9 @@ struct HomeView: View {
                 Text("\(motivation[motivCount])")
                     .onReceive(timer) { _ in
                         motivCount = motivCount + 1
+                        if motivCount > 29 {
+                            motivCount = 0
+                        }
                     }
                     .padding()
             }
