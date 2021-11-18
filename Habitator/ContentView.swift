@@ -84,14 +84,14 @@ let testHabits=[
         object: ObjectWord(singular: "one-hand salute",plural:"one-hand salutes"),
         action: ActionWord(past:"done",present:"do"),
         name: "Do more one-hand salutes",
-        goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "GAMES")],
+        goals: [Goal(name: "lmao"),Goal(name: "ehgdf"),Goal(name: "GAMES")],
         records:[]
     )
 ]
 
 struct ContentView:View{
     @State private var selectedHabit: Habit?=nil
-    @State private var tabSelection: Int=1
+    @State private var tabSelection: Int=0
     @State var habits: [Habit]
     var appPurple=UIColor(rgb: 0x766CD1)
     var lightAppPurple=UIColor(rgb: 0x9498FF)

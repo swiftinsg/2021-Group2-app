@@ -82,7 +82,7 @@ struct HabitsView: View {
         VStack{
             ZStack{
                 Text("Habits")
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
+                    .font(.system(size: 30, weight: .bold))
                 HStack{
                     Button("Edit"){
                         editing = !editing
