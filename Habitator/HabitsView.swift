@@ -10,8 +10,8 @@ import SwiftUI
 
 
 struct HabitListItemView: View{
-    @State var habit: Habit
-    @Binding var selected: Habit?
+    @State var habit: Int
+    @Binding var selected: Int?
     @Binding var habits: [Habit]
     @Binding var editing: Bool
     var body: some View {
@@ -22,23 +22,18 @@ struct HabitListItemView: View{
         }){
             HStack(){
                 if (!editing){
-                    Text(habit.name)
+                    Text(habits[habit].name)
                 }else{
                     Button(action:{
-                        for x in 0..<habits.count{
-                            if (habits[x].name==habit.name){
-                                habits.remove(at:x)
-                                break
-                            }
-                        }
+                        habits.remove(at:habit)
                     }){
                         Image(uiImage: UIImage(systemName:"trash")!)
                             .padding(.trailing)
                     }
-                    TextField(habit.name, text: $habit.name)
+                    TextField(habits[habit].name, text: $habits[habit].name)
                         .opacity(0.7)
                 }
-                if ((selected != nil) && selected!.name==habit.name){
+                if ((selected != nil) && selected!==habit){
                     Spacer()
                     Image(uiImage: UIImage(systemName:"checkmark")!)
                 }
@@ -74,7 +69,7 @@ struct PlaceholderHabitView: View{
 }
 
 struct HabitsView: View {
-    @Binding var currentHabit: Habit?
+    @Binding var currentHabit: Int?
     @Binding var habits: [Habit]
     @State var placeholderText=""
     @State var editing=false
@@ -93,7 +88,7 @@ struct HabitsView: View {
             }
             Divider()
             List{
-                ForEach(habits,id: \.name){ habit in
+                ForEach(0..<habits.count,id: \.self){ habit in
                     HabitListItemView(
                         habit: habit,
                         selected: $currentHabit,

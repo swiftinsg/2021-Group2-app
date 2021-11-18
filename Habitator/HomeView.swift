@@ -7,55 +7,59 @@
 
 import SwiftUI
 
+var motivation = [
+    "Come on, just a bit more, you're almost there!",
+    "YOU'RE SO CLOSE, DON'T GIVE UP NOW",
+    "You can do better than this!!!",
+    "Do it as if your life depends on it(probably does)",
+    "Keep it up!",
+    "There may be a long way left, but you'll reach there eventually!",
+    "ASCEND THE BOUNDARIES OF YOUR HUMANITY",
+    "It may seem hard, but it is actually easy after a while, so don't give up!",
+    "You can always take a short break from making your habits <3",
+    "It's always okay to ask for help!",
+    "You are almost there!!!",
+    "You shouldn't rush, you should take it slowly",
+    "If mew nweed swome suwppowt, mew can always ask a cwose one fuw suwppowt to hewp you <3",
+    "There's always a way to overcome challenges",
+    "You have to turn your frown upside down!",
+    "Break your limits and conquer your challenges!",
+    "If things seem hard, don't take the rope",
+    "If you think this is hard, try coming up with motivational sentences(5Av3 mE)",
+    "I wonder if you're here for these or the actual function of this app, please use it for the intended purpose >_>",
+    "CLICK THAT BUTTON TILL YOUR FINGER BREAKS(only if you actually did the habit)",
+    "Just reach 69420, there'll definitely be something for you :)",
+    "You know you want to click it till 69 :)",
+    "SPAM THAT BUTTON(only if you actually did the habit)",
+    "Us, makes an app to help with habits: You are here to make habits right? You: :) Us: R-right?",
+    "Make that heatmap go stonks",
+    "Remember to pace yourself properly",
+    "You can always reward yourself after completing your goals!",
+    "You'll pick up the habit in no time!",
+    "Habwitwatow at yow suwvice, pwease make yow habwit, don't give uwp meow!",
+    "That button is asking to be clicked"]
+
 struct HomeView: View {
-    @Binding var currentHabit: Habit?
+    @Binding var current: Int?
     @Binding var habits: [Habit]
-    @State var motivCount = Int.random(in: 1..<30)
-    var motivation = ["Come on, just a bit more, you're almost there!",
-                      "YOU'RE SO CLOSE, DON'T GIVE UP NOW",
-                      "You can do better than this!!!",
-                      "Do it as if your life depends on it(probably does)",
-                      "Keep it up!",
-                      "There may be a long way left, but you'll reach there eventually!",
-                      "ASCEND THE BOUNDARIES OF YOUR HUMANITY",
-                      "It may seem hard, but it is actually easy after a while, so don't give up!",
-                      "You can always take a short break from making your habits <3",
-                      "It's always okay to ask for help!",
-                      "You are almost there!!!",
-                      "You shouldn't rush, you should take it slowly",
-                      "If mew nweed swome suwppowt, mew can always ask a cwose one fuw suwppowt to hewp you <3",
-                      "There's always a way to overcome challenges",
-                      "You have to turn your frown upside down!",
-                      "Break your limits and conquer your challenges!",
-                      "If things seem hard, don't take the rope",
-                      "If you think this is hard, try coming up with motivational sentences(5Av3 mE)",
-                      "I wonder if you're here for these or the actual function of this app, please use it for the intended purpose >_>",
-                      "CLICK THAT BUTTON TILL YOUR FINGER BREAKS(only if you actually did the habit)",
-                      "Just reach 69420, there'll definitely be something for you :)",
-                      "You know you want to click it till 69 :)",
-                      "SPAM THAT BUTTON(only if you actually did the habit)",
-                      "Us, makes an app to help with habits: You are here to make habits right? You: :) Us: R-right?",
-                      "Make that heatmap go stonks",
-                      "Remember to pace yourself properly",
-                      "You can always reward yourself after completing your goals!",
-                      "You'll pick up the habit in no time!",
-                      "Habwitwatow at yow suwvice, pwease make yow habwit, don't give uwp meow!",
-                      "That button is asking to be clicked"]
+    @State var motivCount = Int.random(in: 0..<30)
     private let timer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
     
     var body: some View {
-        if (!(currentHabit==nil)){
+        if (!(current==nil)){
             VStack{
                 Text("Home")
                     .font(.system(size: 30, weight: .bold, design: .rounded))
                 Divider()
                     .padding(.bottom)
-                Text("\(currentHabit!.records.count) \(currentHabit!.object.plural) \(currentHabit!.action.past)")
+                Text("\(habits[current!].records.count) \(habits[current!].object.plural) \(habits[current!].action.past)")
                         .padding(.bottom)
                     .font(.system(size: 38, weight: .bold, design: .rounded))
                     .foregroundColor(.purple)
+                    .multilineTextAlignment(.center)
                 Button (action:{
-                    currentHabit?.records+=[ProgressRecord()]
+                    habits[current!]
+                        .records+=[ProgressRecord()]
                 }) {
                     ZStack {
                         Text("Add Progress")
@@ -71,10 +75,7 @@ struct HomeView: View {
                 Spacer()
                 Text("\(motivation[motivCount])")
                     .onReceive(timer) { _ in
-                        motivCount = motivCount + 1
-                        if motivCount > 29 {
-                            motivCount = 0
-                        }
+                        motivCount = Int.random(in: 1..<30)
                     }
                     .padding()
             }

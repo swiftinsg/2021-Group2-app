@@ -90,26 +90,27 @@ let testHabits=[
 ]
 
 struct ContentView:View{
-    @State private var selectedHabit: Habit?=nil
+    @State private var selectedHabit: Int?=nil
     @State private var tabSelection: Int=0
     @State var habits: [Habit]
     var appPurple=UIColor(rgb: 0x766CD1)
     var lightAppPurple=UIColor(rgb: 0x9498FF)
     var body: some View {
         TabView(selection: $tabSelection) {
-            HomeView(currentHabit: $selectedHabit,habits: $habits)
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
-                }
-                .tag(0)
-
             HabitsView(currentHabit: $selectedHabit,habits: $habits)
                 .tabItem {
                     Image(systemName: "magnifyingglass")
                     Text("Habits")
                 }
+                .tag(0)
+            
+            HomeView(current: $selectedHabit,habits: $habits)
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Home")
+                }
                 .tag(1)
+
 
             ProgressView()
                 .tabItem {
