@@ -71,7 +71,7 @@ struct HomeView: View {
                     .padding()
             }
         }else{
-            Text("Please select a habits in the habits screen by clicking on it!")
+            Text("Please select a habit in the habits screen by clicking on it!")
                     .bold()
                 .padding()
         }
