@@ -23,7 +23,7 @@ struct HomeView: View {
                       "It's always okay to ask for help!",
                       "You are almost there!!!",
                       "You shouldn't rush, you should take it slowly",
-                      "If mew nweed swome suwppowt, mew can always ask a clwose one fuw suwppowt to hewp you <3",
+                      "If mew nweed swome suwppowt, mew can always ask a cwose one fuw suwppowt to hewp you <3",
                       "There's always a way to overcome challenges",
                       "You have to turn your frown upside down!",
                       "Break your limits and conquer your challenges!",
