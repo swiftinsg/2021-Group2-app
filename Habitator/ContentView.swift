@@ -84,7 +84,7 @@ let testHabits=[
         object: ObjectWord(singular: "one-hand salute",plural:"one-hand salutes"),
         action: ActionWord(past:"done",present:"do"),
         name: "Do more one-hand salutes",
-        goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "GAMES")],
+        goals: [Goal(name: "lmao"),Goal(name: "ehgdf"),Goal(name: "GAMES")],
         records:[]
     )
 ]
