@@ -16,7 +16,7 @@
 		CAAC046E273E9D8000C95093 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAAC046D273E9D8000C95093 /* Preview Assets.xcassets */; };
 		CAAC0479273E9D8000C95093 /* HabitatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAC0478273E9D8000C95093 /* HabitatorTests.swift */; };
 		CAAC0484273E9D8000C95093 /* HabitatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAC0483273E9D8000C95093 /* HabitatorUITests.swift */; };
-		CAAD7B782747422A00A1DF35 /* HeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD7B772747422A00A1DF35 /* HeatmapView.swift */; };
+		CAAD7B832747440600A1DF35 /* HeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAD7B822747440600A1DF35 /* HeatmapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,7 @@
 		CAAC047F273E9D8000C95093 /* HabitatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HabitatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAAC0483273E9D8000C95093 /* HabitatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitatorUITests.swift; sourceTree = "<group>"; };
 		CAAC0485273E9D8000C95093 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CAAD7B772747422A00A1DF35 /* HeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HeatmapView.swift; path = ../../../Desktop/HeatmapView.swift; sourceTree = "<group>"; };
+		CAAD7B822747440600A1DF35 /* HeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +109,7 @@
 				CAAC046C273E9D8000C95093 /* Preview Content */,
 				CA03B4FA2742079900FE193F /* HabitsView.swift */,
 				CA03B5052742184F00FE193F /* HomeView.swift */,
-				CAAD7B772747422A00A1DF35 /* HeatmapView.swift */,
+				CAAD7B822747440600A1DF35 /* HeatmapView.swift */,
 			);
 			path = Habitator;
 			sourceTree = "<group>";
@@ -274,7 +274,7 @@
 				CAAC0467273E9D7E00C95093 /* HabitatorApp.swift in Sources */,
 				CA03B5062742184F00FE193F /* HomeView.swift in Sources */,
 				2ED6A41227420A9D00FE9793 /* (null) in Sources */,
-				CAAD7B782747422A00A1DF35 /* HeatmapView.swift in Sources */,
+				CAAD7B832747440600A1DF35 /* HeatmapView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
