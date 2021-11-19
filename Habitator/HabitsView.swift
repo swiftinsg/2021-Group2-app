@@ -21,7 +21,7 @@ struct HabitListItemView: View{
             }
         }){
             HStack(){
-                if (!editing){
+                if (!editing && habits.count>habit){
                     Text(habits[habit].name)
                 }else{
                     Button(action:{
@@ -30,8 +30,10 @@ struct HabitListItemView: View{
                         Image(uiImage: UIImage(systemName:"trash")!)
                             .padding(.trailing)
                     }
-                    TextField(habits[habit].name, text: $habits[habit].name)
-                        .opacity(0.7)
+                    if (habits.count>habit){
+                        TextField(habits[habit].name, text: $habits[habit].name)
+                            .opacity(0.7)
+                    }
                 }
                 if ((selected != nil) && selected!==habit){
                     Spacer()
