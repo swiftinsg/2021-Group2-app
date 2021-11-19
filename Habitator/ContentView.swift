@@ -112,7 +112,7 @@ struct ContentView:View{
                 .tag(1)
 
 
-            ProgressView()
+            HeatmapView(current: $selectedHabit,habits: $habits)
                 .tabItem {
                     Image(systemName: "chart.bar")
                     Text("Progress")
