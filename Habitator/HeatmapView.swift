@@ -24,9 +24,14 @@ extension Date {
 struct Progress{
     var progress:[ProgressRecord]
     var earliest: ProgressRecord?=nil
+    var average: Int?=nil
+    var max: Int?=nil
     var days:[[ProgressRecord]]=[]
     init(progress:[ProgressRecord]){
         self.progress=progress
+        if progress.count==0{
+            return
+        }
         for progress in self.progress{
             if (earliest==nil || progress.time<self.earliest!.time){
                 self.earliest=progress
@@ -38,6 +43,12 @@ struct Progress{
         while (proccesing<Date()){
             self.days+=[between(from:proccesing,to:Date(timeInterval: 60*60*24, since: proccesing))]
             proccesing=Date(timeInterval: 60*60*24, since: proccesing)
+        }
+        self.average=days.count>0 ? self.progress.count/days.count : nil
+        for day in self.days{
+            if max==nil || day.count>max!{
+                max=day.count
+            }
         }
     }
     func between(from:Date,to:Date)->[ProgressRecord]{
@@ -72,25 +83,36 @@ let gradient=[
 ]
 
 struct HeatmapRectangle: View{
-    var section: Int
+    var progress: Progress
+    var day: Int
     var body: some View {
-        Text("E")
+        Rectangle()
+            .frame(width: 30, height: 30, alignment: .center)
+            .foregroundColor(Color(gradient[
+                Int((gradient.count-1)*(progress.days[day].count/progress.average!))
+            ]))
     }
 }
 
 struct HeatmapView: View {
     @Binding var current: Int?
     @Binding var habits: [Habit]
+    @State var progress: Progress?
     var body: some View {
-        ScrollView{
+        if !(current==nil){
             VStack {
                 Text("Heatmap")
                     .font(.system(size: 30, weight: .bold))
                 Divider()
-                ForEach(1...2,id:\.self){item in
-                    Text("a")
+                ForEach(0..<6,id: \.self){ rect in
+                    HeatmapRectangle(progress: Progress(progress: habits[current!].records),day: 0)
                 }
+                Spacer()
             }
+        }else{
+            Text("Please select a habit in the habits screen by clicking on it!")
+                    .bold()
+                .padding()
         }
     }
 }
