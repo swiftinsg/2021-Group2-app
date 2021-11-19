@@ -63,9 +63,9 @@ struct HomeView: View {
                 }) {
                     ZStack {
                         Text("Add Progress")
-                            .font(.system(size: 20, weight: .bold, design: .rounded))
-                        RoundedRectangle(cornerRadius: 15)
-                            .frame(width: 250, height: 100)
+                            .font(.system(size: 23, weight: .bold, design: .rounded))
+                        RoundedRectangle(cornerRadius: 17)
+                            .frame(width: 250, height: 95)
                             .foregroundColor(.purple)
                             .opacity(0.2)
                     }
