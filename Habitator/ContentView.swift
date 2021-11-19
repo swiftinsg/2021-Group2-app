@@ -54,15 +54,6 @@ struct Habit:Identifiable{
     var name: String
     var goals: [Goal]
     var records: [ProgressRecord]
-    func progress(from: Date,to: Date)->Int{
-        var count=0
-        for progress in records{
-            if (progress.time>from && progress.time<to){
-                count+=1
-            }
-        }
-        return count
-    }
 }
 
 let testHabits=[
