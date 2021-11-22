@@ -81,44 +81,79 @@ let testHabits=[
 ]
 
 struct ContentView:View{
+    @State var todos = [Todo(title: "Feed the cat", isCompleted: true),
+                            Todo(title: "Play with cat"),
+                            Todo(title: "Get allergies"),
+                            Todo(title: "Run away from cat"),
+                            Todo(title: "Get a new cat")]
+    @State var isSheetPresented = false
     @State private var selectedHabit: Int?=nil
     @State private var tabSelection: Int=0
     @State var habits: [Habit]
-    var appPurple=UIColor(rgb: 0x766CD1)
+        var appPurple=UIColor(rgb: 0x766CD1)
     var lightAppPurple=UIColor(rgb: 0x9498FF)
-    var body: some View {
-        TabView(selection: $tabSelection) {
-            HabitsView(currentHabit: $selectedHabit,habits: $habits)
-                .tabItem {
-                    Image(systemName: "magnifyingglass")
-                    Text("Habits")
-                }
-                .tag(0)
-            
-            HomeView(current: $selectedHabit,habits: $habits)
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
-                }
-                .tag(1)
+        var body: some View {
+            TabView(selection: $tabSelection) {
+                NavigationView {
+                            List {
+                                ForEach(todos) { todo in
+                                    Button {
+                                        let todoIndex = todos.firstIndex(of: todo)!
+                                        todos[todoIndex].isCompleted.toggle()
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
+                                            Text(todo.title)
+                                                .foregroundColor(.black)
+                                        }
+                                    }
+                                }
+                                .onDelete { indexSet in
+                                    todos.remove(atOffsets: indexSet)
+                                }
+                                .onMove { indices, newOffset in
+                                    todos.move(fromOffsets: indices, toOffset: newOffset)
+                                }
+                            }
+                            .navigationTitle("Habits")
+                            .navigationBarItems(leading: EditButton(),
+                                                trailing: Button {
+                                                    isSheetPresented = true
+                                                } label: {
+                                                    Image(systemName: "plus")
+                                                })
+                        }
+                        .sheet(isPresented: $isSheetPresented) {
+                            NewTodoView(todos: $todos)
+                        }.tabItem {
+                        Image(systemName: "magnifyingglass")
+                        Text("Habits")
+                    }
+                    .tag(0)
+                
+                HomeView(current: $selectedHabit,habits: $habits)
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                        Text("Home")
+                    }
+                    .tag(1)
 
 
-            HeatmapView(current: $selectedHabit,habits: $habits)
-                .tabItem {
-                    Image(systemName: "chart.bar")
-                    Text("Progress")
-                }
-                .tag(2)
+                HeatmapView(current: $selectedHabit,habits: $habits)
+                    .tabItem {
+                        Image(systemName: "chart.bar")
+                        Text("Progress")
+                    }
+                    .tag(2)
+            }
         }
     }
-}
 
-struct ContentView_Previews: PreviewProvider {
-    @State var tabSelection: Int=1
-    static var previews: some View {
-        Group {
-            ContentView(habits:testHabits)
+    struct ContentView_Previews: PreviewProvider {
+        @State var tabSelection: Int=1
+        static var previews: some View {
+            Group {
+                ContentView(habits:testHabits)
+            }
         }
     }
-}
-
