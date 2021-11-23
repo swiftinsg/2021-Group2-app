@@ -99,13 +99,13 @@ struct HeatmapView: View {
     @Binding var habits: [Habit]
     @State var progress: Progress?
     var body: some View {
-        if !(current==nil){
+        if !(progress==nil){
             VStack {
                 Text("Heatmap")
                     .font(.system(size: 30, weight: .bold))
                 Divider()
-                ForEach(0..<6,id: \.self){ rect in
-                    HeatmapRectangle(progress: Progress(progress: habits[current!].records),day: 0)
+                ForEach(progress!.days.indices,id: \.self){ rect in
+                    HeatmapRectangle(progress: progress!,day: rect)
                 }
                 Spacer()
             }
@@ -113,14 +113,13 @@ struct HeatmapView: View {
             Text("Please select a habit in the habits screen by clicking on it!")
                     .bold()
                 .padding()
-        }
-    }
-    
-    func viewWillAppear(){
-        if current==nil{
-            progress=nil
-        }else{
-            progress=Progress(progress: habits[current!].records)
+                .onAppear{
+                    if current==nil{
+                        progress=nil
+                    }else{
+                        progress=Progress(progress: habits[current!].records)
+                    }
+                }
         }
     }
 }
