@@ -94,7 +94,7 @@ struct ContentView:View{
     var lightAppPurple=UIColor(rgb: 0x9498FF)
     var body: some View {
         TabView(selection: $tabSelection) {
-            HabitsView(currentHabit: $selectedHabit,habits: $habits)
+            HabitsView(habits: $habits, currentHabit: $selectedHabit)
                 .tabItem {
                     Image(systemName: "target")
                     Text("Habits")

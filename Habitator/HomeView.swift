@@ -42,7 +42,7 @@ var motivation = [
 struct HomeView: View {
     @Binding var current: Int?
     @Binding var habits: [Habit]
-    @State var motivCount = Int.random(in: 0..<30)
+    @State var motivCount = Int.random(in: 0..<motivation.count)
     private let timer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
     
     var body: some View {
@@ -75,7 +75,7 @@ struct HomeView: View {
                 Spacer()
                 Text("\(motivation[motivCount])")
                     .onReceive(timer) { _ in
-                        motivCount = Int.random(in: 1..<30)
+                        motivCount = Int.random(in: 0..<motivation.count)
                     }
                     .padding()
             }

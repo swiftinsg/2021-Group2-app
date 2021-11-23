@@ -18,9 +18,9 @@ struct Todo: Identifiable, Equatable {
 
 
 struct HabitListItemView: View{
+    @Binding var habits: [Habit]
     @State var habit: Int
     @Binding var selected: Int?
-    @Binding var habits: [Habit]
     @Binding var editing: Bool
     var body: some View {
         Button(action: {
@@ -79,8 +79,8 @@ struct PlaceholderHabitView: View{
 }
 
 struct HabitsView: View {
+    @Binding var habits: [Habit] 
     @Binding var currentHabit: Int?
-    @Binding var habits: [Habit]
     @State var placeholderText=""
     @State var editing=false
     var body: some View {
@@ -98,11 +98,10 @@ struct HabitsView: View {
             }
             Divider()
             List{
-                ForEach(0..<habits.count,id: \.self){ habit in
+                ForEach(habits.indices,id: \.self){ habit in
                     HabitListItemView(
-                        habit: habit,
+                        habits: $habits, habit: habit,
                         selected: $currentHabit,
-                        habits: $habits,
                         editing: $editing
                     )
                 }
