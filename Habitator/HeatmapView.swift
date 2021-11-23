@@ -27,7 +27,7 @@ struct Progress{
     var average: Int?=nil
     var max: Int?=nil
     var days:[[ProgressRecord]]=[]
-    init(progress:[ProgressRecord]){
+    init(progress:[ProgressRecord],created: Date){
         self.progress=progress
         if progress.count==0{
             return
@@ -38,7 +38,7 @@ struct Progress{
             }
         }
         var proccesing=Date(
-            "\(self.earliest!.time.get(.year))-\(self.earliest!.time.get(.month))-\(self.earliest!.time.get(.day))"
+            "\(created.get(.year))-\(created.get(.month))-\(created.get(.day))"
         )
         while (proccesing<Date()){
             self.days+=[between(from:proccesing,to:Date(timeInterval: 60*60*24, since: proccesing))]
@@ -103,21 +103,43 @@ struct HeatmapView: View {
             VStack {
                 Text("Heatmap")
                     .font(.system(size: 30, weight: .bold))
+                    .onAppear{
+                        if current==nil{
+                            progress=nil
+                        }else{
+                            progress=Progress(progress: habits[current!].records,created: habits[current!].created)
+                        }
+                    }
                 Divider()
-                ForEach(progress!.days.indices,id: \.self){ rect in
-                    HeatmapRectangle(progress: progress!,day: rect)
+                if (progress!.days.count==0){
+                    Text("Progress that you enter will be shown here!").bold()
+                }else{
+                    ForEach(0..<progress!.days.count/7+(!(progress!.days.count%7==0) ? 1 : 0),id: \.self){ week in
+                        HStack{
+                            Text("week \(week)")
+                            ForEach(week*7...(week+1)*7,id:\.self){ day in
+                                if (progress!.days.count>day){
+                                    HeatmapRectangle(progress: progress!,day: day)
+                                }else{
+                                    Rectangle()
+                                        .frame(width: 30, height: 30, alignment: .center)
+                                        .foregroundColor(Color(UIColor(red:0xdd,green:0xdd,blue:0xdd)))
+                                }
+                            }
+                        }
+                    }
                 }
                 Spacer()
             }
         }else{
             Text("Please select a habit in the habits screen by clicking on it!")
-                    .bold()
+                .bold()
                 .padding()
                 .onAppear{
                     if current==nil{
                         progress=nil
                     }else{
-                        progress=Progress(progress: habits[current!].records)
+                        progress=Progress(progress: habits[current!].records,created:habits[current!].created)
                     }
                 }
         }

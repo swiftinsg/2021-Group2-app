@@ -48,6 +48,7 @@ struct Goal:Codable{
 }
 
 struct Habit:Identifiable,Codable{
+    var created=Date()
     var id=UUID()
     var object: ObjectWord
     var action: ActionWord

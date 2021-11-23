@@ -134,8 +134,8 @@
 		CAAC0482273E9D8000C95093 /* HabitatorUITests */ = {
 			isa = PBXGroup;
 			children = (
-				CAAC0483273E9D8000C95093 /* HabitatorUITests.swift */,
 				CAAC0485273E9D8000C95093 /* Info.plist */,
+				CAAC0483273E9D8000C95093 /* HabitatorUITests.swift */,
 			);
 			path = HabitatorUITests;
 			sourceTree = "<group>";
