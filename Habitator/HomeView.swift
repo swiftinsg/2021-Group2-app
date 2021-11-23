@@ -9,6 +9,17 @@ import SwiftUI
 
 var motivation = [
     "Come on, just a bit more, you're almost there!",
+    "You can do it!",
+    "Keep going",
+    "The sky is the limit!",
+    "Success is not final",
+    "Failure is not fatal",
+    "It is the courage to continue that counts",
+    "Good things take time",
+    "Work hard in silence,let your success be your noise",
+    "It's going to be hard but hard does not mean impossible",
+    "Tough times don't last, tough people do",
+    "Be yourself but always your better self",
     "YOU'RE SO CLOSE, DON'T GIVE UP NOW",
     "You can do better than this!!!",
     "Do it as if your life depends on it(probably does)",
