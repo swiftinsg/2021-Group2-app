@@ -89,7 +89,7 @@ struct HeatmapRectangle: View{
         Rectangle()
             .frame(width: 30, height: 30, alignment: .center)
             .foregroundColor(Color(gradient[
-                Int((gradient.count-1)*(progress.days[day].count/progress.average!))
+                Int((gradient.count-1)*(progress.days[day].count/progress.max!))
             ]))
     }
 }
@@ -113,6 +113,14 @@ struct HeatmapView: View {
             Text("Please select a habit in the habits screen by clicking on it!")
                     .bold()
                 .padding()
+        }
+    }
+    
+    func viewWillAppear(){
+        if current==nil{
+            progress=nil
+        }else{
+            progress=Progress(progress: habits[current!].records)
         }
     }
 }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2ED6A41227420A9D00FE9793 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		64B7DACF274B5B2500A5DA49 /* NewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B7DACE274B5B2500A5DA49 /* NewTodoView.swift */; };
 		CA03B4FB2742079900FE193F /* HabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA03B4FA2742079900FE193F /* HabitsView.swift */; };
 		CA03B5062742184F00FE193F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA03B5052742184F00FE193F /* HomeView.swift */; };
 		CAAC0467273E9D7E00C95093 /* HabitatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAC0466273E9D7E00C95093 /* HabitatorApp.swift */; };
@@ -38,7 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		64B7DACE274B5B2500A5DA49 /* NewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewTodoView.swift; path = ../../../NewTodoView.swift; sourceTree = "<group>"; };
 		CA03B4FA2742079900FE193F /* HabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HabitsView.swift; sourceTree = "<group>"; };
 		CA03B5052742184F00FE193F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		CAAC0463273E9D7E00C95093 /* Habitator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habitator.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +104,6 @@
 			children = (
 				CAAC0466273E9D7E00C95093 /* HabitatorApp.swift */,
 				CAAC0468273E9D7E00C95093 /* ContentView.swift */,
-				64B7DACE274B5B2500A5DA49 /* NewTodoView.swift */,
 				CAAC046A273E9D8000C95093 /* Assets.xcassets */,
 				CAAC046F273E9D8000C95093 /* Info.plist */,
 				CAAC046C273E9D8000C95093 /* Preview Content */,
@@ -272,7 +269,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64B7DACF274B5B2500A5DA49 /* NewTodoView.swift in Sources */,
 				CAAC0469273E9D7E00C95093 /* ContentView.swift in Sources */,
 				CA03B4FB2742079900FE193F /* HabitsView.swift in Sources */,
 				CAAC0467273E9D7E00C95093 /* HabitatorApp.swift in Sources */,
