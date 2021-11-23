@@ -96,8 +96,8 @@ struct ContentView:View{
         TabView(selection: $tabSelection) {
             HabitsView(currentHabit: $selectedHabit,habits: $habits)
                 .tabItem {
-                    Image(systemName: "chart.bar")
-                    Text("Progress")
+                    Image(systemName: "target")
+                    Text("Habits")
                 }
                 .tag(2)
             
