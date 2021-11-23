@@ -99,7 +99,7 @@ struct ContentView:View{
                     Image(systemName: "target")
                     Text("Habits")
                 }
-                .tag(2)
+                .tag(0)
             
             HomeView(current: $selectedHabit,habits: $habits)
                 .tabItem {
