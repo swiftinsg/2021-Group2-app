@@ -63,7 +63,7 @@ struct HomeView: View {
                     .font(.system(size: 30, weight: .bold, design: .rounded))
                 Divider()
                     .padding(.bottom)
-                Text("\(habits[current!].records.count) \(habits[current!].object.plural) \(habits[current!].action.past)")
+                Text("\(habits[current!].records.count)\(habits[current!].unit==nil ? "" : habits[current!].unit!) \(habits[current!].object.plural) \(habits[current!].action.past)")
                         .padding(.bottom)
                     .font(.system(size: 38, weight: .bold, design: .rounded))
                     .foregroundColor(.purple)

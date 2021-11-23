@@ -25,64 +25,24 @@ extension UIColor {
    }
 }
 
-struct ProgressRecord:Codable{
-    var time=Date()
-}
-
-struct ObjectWord:Codable{
-    var singular: String
-    var plural: String
-}
-
-struct ActionWord:Codable{
-    var past: String
-    var present: String
-}
-
-struct Goal:Codable{
-    var name: String
-    func isAcheived(habit: Habit)->Bool{
-        //do checks when its done
-        return true
-    }
-}
-
-struct Habit:Identifiable,Codable{
-    var created=Date()
-    var id=UUID()
-    var object: ObjectWord
-    var action: ActionWord
-    var name: String
-    var goals: [Goal]
-    var records: [ProgressRecord]
-}
-
 class HabitsData: ObservableObject {
     @Published var habits:[Habit]=[]
-
-    let sampleHabits=[
-        Habit(
-            object: ObjectWord(singular: "apple",plural:"apples"),
-            action: ActionWord(past:"eaten",present:"eat"),
-            name: "Eat apples",
-            goals: [Goal(name: "lmao"),Goal(name: "e")],
-            records:[]
-        ),
-        Habit(
-            object: ObjectWord(singular: "chinese propaganda",plural:"chinese propaganda"),
-            action: ActionWord(past: "spreaded",present:"spread"),
-            name: "Read more chinese propaganda",
-            goals: [Goal(name: "lmao"),Goal(name: "e"),Goal(name: "a")],
-            records:[]
-        ),
-        Habit(
-            object: ObjectWord(singular: "one-hand salute",plural:"one-hand salutes"),
-            action: ActionWord(past:"done",present:"do"),
-            name: "Do more one-hand salutes",
-            goals: [Goal(name: "lmao"),Goal(name: "ehgdf"),Goal(name: "GAMES")],
-            records:[]
-        )
-    ]
+    let sampleHabits:[Habit]
+    init(){
+        do{
+            sampleHabits=[
+                try Habit(
+                    name: "Eat 69420 apples by 3am"
+                ),
+                try Habit(
+                    name: "Read 12312312313 chinese propaganda after 2pm"
+                ),
+                try Habit(
+                    name: "Do 800 one-hand salutes by 6pm"
+                )
+            ]
+        }catch{sampleHabits=[]}
+    }
     func getArchiveURL() -> URL {
         let plistName = "habits.plist"
         let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!

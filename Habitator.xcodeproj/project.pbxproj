@@ -10,6 +10,7 @@
 		2ED6A41227420A9D00FE9793 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		CA03B4FB2742079900FE193F /* HabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA03B4FA2742079900FE193F /* HabitsView.swift */; };
 		CA03B5062742184F00FE193F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA03B5052742184F00FE193F /* HomeView.swift */; };
+		CA4CB627274D40EC004448F6 /* HabitsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4CB626274D40EC004448F6 /* HabitsTypes.swift */; };
 		CAAC0467273E9D7E00C95093 /* HabitatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAC0466273E9D7E00C95093 /* HabitatorApp.swift */; };
 		CAAC0469273E9D7E00C95093 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAAC0468273E9D7E00C95093 /* ContentView.swift */; };
 		CAAC046B273E9D8000C95093 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAAC046A273E9D8000C95093 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		CA03B4FA2742079900FE193F /* HabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HabitsView.swift; sourceTree = "<group>"; };
 		CA03B5052742184F00FE193F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		CA4CB626274D40EC004448F6 /* HabitsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsTypes.swift; sourceTree = "<group>"; };
 		CAAC0463273E9D7E00C95093 /* Habitator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Habitator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAAC0466273E9D7E00C95093 /* HabitatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitatorApp.swift; sourceTree = "<group>"; };
 		CAAC0468273E9D7E00C95093 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				CA03B4FA2742079900FE193F /* HabitsView.swift */,
 				CA03B5052742184F00FE193F /* HomeView.swift */,
 				CAAD7B822747440600A1DF35 /* HeatmapView.swift */,
+				CA4CB626274D40EC004448F6 /* HabitsTypes.swift */,
 			);
 			path = Habitator;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				CAAC0469273E9D7E00C95093 /* ContentView.swift in Sources */,
 				CA03B4FB2742079900FE193F /* HabitsView.swift in Sources */,
 				CAAC0467273E9D7E00C95093 /* HabitatorApp.swift in Sources */,
+				CA4CB627274D40EC004448F6 /* HabitsTypes.swift in Sources */,
 				CA03B5062742184F00FE193F /* HomeView.swift in Sources */,
 				2ED6A41227420A9D00FE9793 /* (null) in Sources */,
 				CAAD7B832747440600A1DF35 /* HeatmapView.swift in Sources */,

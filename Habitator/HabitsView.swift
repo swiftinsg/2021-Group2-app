@@ -55,25 +55,30 @@ struct HabitListItemView: View{
 struct PlaceholderHabitView: View{
     @Binding var habits:[Habit]
     @State var text=""
+    @State private var invalidInput=false
     var body: some View {
         Button(action: {
-            if (!(text=="")){
-                habits+=[Habit(
-                    object: ObjectWord(
-                        singular: "singular",
-                        plural: "plural"
-                    ),
-                    action: ActionWord(past:"Past tense",present:"Present tense"),
-                    name: text, goals: [],
-                    records:[]
-                )]
-                text=""
+            do{
+                if (!(text=="")){
+                    habits+=[try Habit(
+                        name: text
+                    )]
+                    text=""
+                }
+            }catch{
+                invalidInput=true
             }
         }){
             TextField(
                 "Type To Enter",
                 text: $text
             ).opacity(0.5)
+        }.alert(isPresented: $invalidInput) {
+            return Alert(
+                title: Text("Habit format invalid!"),
+                message: Text("Habits should follow the format of [action word] [amount] [object] {before/after} [time].\neg. Eat 6942 apples before 3pm"),
+                dismissButton: .default(Text("Got it!"))
+            )
         }
     }
 }
