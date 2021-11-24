@@ -32,13 +32,16 @@ class HabitsData: ObservableObject {
         do{
             sampleHabits=[
                 try Habit(
-                    name: "Eat 69420 apples by 3am"
+                    name: "Eat 69420 apples by 3am",
+                    sampleSentence: "I ate 1 apple"
                 ),
                 try Habit(
-                    name: "Read 12312312313 chinese propaganda after 2pm"
+                    name: "Read 12312312313 chinese propaganda after 2pm",
+                    sampleSentence: "I have read 1 chinese propaganda"
                 ),
                 try Habit(
-                    name: "Do 800 one-hand salutes by 6pm"
+                    name: "Do 800 one-hand salutes by 6pm",
+                    sampleSentence: "I have done 1 one-hand salute"
                 )
             ]
         }catch{sampleHabits=[]}
@@ -98,13 +101,13 @@ struct ContentView:View{
                 }
                 .tag(1)
 
-
-            HeatmapView(current: $selectedHabit,habits: $habits)
+            HeatmapView(current: $selectedHabit, habits: $habits)
                 .tabItem {
                     Image(systemName: "chart.bar")
                     Text("Progress")
                 }
                 .tag(2)
         }
+        
     }
 }

@@ -55,24 +55,33 @@ struct HabitListItemView: View{
 struct PlaceholderHabitView: View{
     @Binding var habits:[Habit]
     @State var text=""
+    @State var sampleText=""
     @State private var invalidInput=false
     var body: some View {
         Button(action: {
             do{
-                if (!(text=="")){
+                if (!(text+sampleText=="")){
                     habits+=[try Habit(
-                        name: text
+                        name: text,
+                        sampleSentence: sampleText
                     )]
                     text=""
+                    sampleText=""
                 }
             }catch{
                 invalidInput=true
             }
         }){
-            TextField(
-                "Type To Enter",
-                text: $text
-            ).opacity(0.5)
+            VStack{
+                TextField(
+                    "Type To Enter",
+                    text: $text
+                ).opacity(0.5)
+                TextField(
+                    "Sample text",
+                    text: $sampleText
+                ).opacity(0.5)
+            }
         }.alert(isPresented: $invalidInput) {
             return Alert(
                 title: Text("Habit format invalid!"),

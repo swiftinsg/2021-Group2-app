@@ -55,12 +55,12 @@ struct TagWordPair{
 //                v    v    v      v            v          v
 // hMM smth like "eat 19 apples before        every       12am"
 extension Habit{
-    init(name: String) throws{
+    init(name: String,sampleSentence: String) throws{
         var words:[TagWordPair]=[]
         
-        let tagger = NLTagger(tagSchemes: [.lexicalClass])
+        var tagger = NLTagger(tagSchemes: [.lexicalClass])
         tagger.string = name
-        let options: NLTagger.Options = [.omitWhitespace]
+        var options: NLTagger.Options = [.omitWhitespace]
 
         tagger.enumerateTags(in: name.startIndex..<name.endIndex, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange in
             if let tag = tag {
@@ -71,7 +71,7 @@ extension Habit{
         
         var pos=0
         if words[pos].type=="Verb"{
-            action=ActionWord(past: words[pos].word, present: words[pos].word)
+            action=ActionWord(past: "...", present: words[pos].word.lowercased())
         }else{throw "first word not verb"}
         
         pos+=1
@@ -94,8 +94,12 @@ extension Habit{
             objectName+=words[pos].word+" "
             pos+=1
         }
-        objectName=objectName.trimmingCharacters(in: .whitespacesAndNewlines)
-        object=ObjectWord(singular: objectName, plural: objectName)
+        objectName=objectName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        if !(amount==1){
+            object=ObjectWord(singular: "...", plural: objectName)
+        }else{
+            object=ObjectWord(singular: objectName, plural: "...")
+        }
         
         if words[pos].type=="Preposition"{
             if words[pos].word=="by" || words[pos].word=="before"{
@@ -140,5 +144,63 @@ extension Habit{
         
         self.name=name
         records=[]
+        
+        // sampleSentence
+        // i ate a apple
+        // or i ate 809 apples
+        // pronoun (verb|(have|had) verb) number noun
+        words=[]
+        
+        tagger = NLTagger(tagSchemes: [.lexicalClass])
+        tagger.string = sampleSentence
+        options = [.omitWhitespace]
+
+        tagger.enumerateTags(in: sampleSentence.startIndex..<sampleSentence.endIndex, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange in
+            if let tag = tag {
+                words+=[TagWordPair(type: tag.rawValue,word: "\(sampleSentence[tokenRange])")]
+            }
+            return true
+        }
+        
+        pos=0
+        if words[pos].type=="Pronoun"{
+            pos+=1
+        }
+        
+        var verb=""
+        while words[pos].type=="Verb"{
+            verb+=words[pos].word+" "
+            pos+=1
+        }
+        
+        action.past=verb.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        var sampleamount = -1
+        if words[pos].type=="Number"{
+            sampleamount=Int(words[pos].word)!
+        }else if words[pos].type=="OtherWord"{
+            sampleamount=Int(words[pos].word.digits)!
+        }else{throw "invalid amount for sample sentence"}
+        
+        if (sampleamount==1) == (amount==1){
+            throw "both sample and name name have same form"
+        }
+        
+        pos+=1
+        if words[pos].type=="Preposition"{
+            pos+=1
+        }
+        
+        var sampleobject=""
+        while pos<words.count{
+            sampleobject+=words[pos].word+" "
+            pos+=1
+        }
+        
+        if amount==1{
+            object.plural=sampleobject.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        }else{
+            object.singular=sampleobject.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        }
     }
 }

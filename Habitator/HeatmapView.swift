@@ -27,7 +27,8 @@ struct Progress{
     var average: Int?=nil
     var max: Int?=nil
     var days:[[ProgressRecord]]=[]
-    init(progress:[ProgressRecord],created: Date){
+    var goalDone:Int?=nil
+    init(progress:[ProgressRecord],created: Date,habit: Habit){
         self.progress=progress
         if progress.count==0{
             return
@@ -50,6 +51,22 @@ struct Progress{
                 max=day.count
             }
         }
+        
+        let todaystart=Date(timeInterval: -(60*60*24), since: proccesing)
+        let todayend=proccesing
+        
+        let goalTime=Date(timeInterval: TimeInterval(habit.time),since: todaystart)
+        var goalTimes:[ProgressRecord]=[]
+        if habit.timeMode=="before"{
+            goalTimes=between(from:todaystart,to:goalTime)
+        }else{
+            goalTimes=between(from:goalTime,to:todayend)
+        }
+        
+        goalDone=goalTimes.count-habit.amount
+    }
+    init(){
+        progress=[]
     }
     func between(from:Date,to:Date)->[ProgressRecord]{
         var result:[ProgressRecord]=[]
@@ -83,50 +100,70 @@ let gradient=[
 ]
 
 struct HeatmapRectangle: View{
-    var progress: Progress
-    var day: Int
+    @Binding var progress: Progress
+    @State var day: Int
     var body: some View {
-        Rectangle()
-            .frame(width: 30, height: 30, alignment: .center)
-            .foregroundColor(Color(gradient[
-                Int((gradient.count-1)*(progress.days[day].count/progress.max!))
-            ]))
+        if (progress.days.count>day){
+            Rectangle()
+                .frame(width: 30, height: 30, alignment: .center)
+                .foregroundColor(Color(gradient[
+                    Int((gradient.count-1)*(progress.days[day].count/progress.max!))
+                ]))
+        }else{
+            Rectangle()
+                .frame(width: 30, height: 30, alignment: .center)
+                .foregroundColor(Color(UIColor(red:0xdd,green:0xdd,blue:0xdd)))
+        }
+    }
+}
+
+struct HeatmapHeatmapRowView: View{
+    @State var week: Int
+    @Binding var progress: Progress
+    var body: some View{
+        HStack{
+            ForEach(week*7...(week+1)*7,id:\.self){ day in
+                HeatmapRectangle(progress: $progress,day: day)
+            }
+        }
+    }
+}
+
+// stride(from: (week+1)*7,through: week*7,by:-1)
+struct HeatmapHeatmapView: View{
+    @Binding var progress: Progress
+    var body: some View{
+        ForEach(0..<progress.days.count/7+(!(progress.days.count%7==0) ? 1 : 0),id: \.self){ week in
+            HStack{
+                Text("day \(week*7)-\((week+1)*7)")
+                HeatmapHeatmapRowView(week: week,progress: $progress)
+            }
+        }
     }
 }
 
 struct HeatmapView: View {
     @Binding var current: Int?
     @Binding var habits: [Habit]
-    @State var progress: Progress?
-    var body: some View {
-        if !(progress==nil){
+    @State var progress: Progress=Progress()
+    var body: some View {        if !(current==nil){
             VStack {
                 Text("Heatmap")
                     .font(.system(size: 30, weight: .bold))
-                    .onAppear{
-                        if current==nil{
-                            progress=nil
-                        }else{
-                            progress=Progress(progress: habits[current!].records,created: habits[current!].created)
+                    .onAppear(){
+                        if !(current==nil){
+                            progress=Progress(progress: habits[current!].records,created:habits[current!].created, habit: habits[current!])
                         }
                     }
                 Divider()
-                if (progress!.days.count==0){
+                if (progress.days.count==0){
                     Text("Progress that you enter will be shown here!").bold()
                 }else{
-                    ForEach(0..<progress!.days.count/7+(!(progress!.days.count%7==0) ? 1 : 0),id: \.self){ week in
-                        HStack{
-                            Text("week \(week)")
-                            ForEach(week*7...(week+1)*7,id:\.self){ day in
-                                if (progress!.days.count>day){
-                                    HeatmapRectangle(progress: progress!,day: day)
-                                }else{
-                                    Rectangle()
-                                        .frame(width: 30, height: 30, alignment: .center)
-                                        .foregroundColor(Color(UIColor(red:0xdd,green:0xdd,blue:0xdd)))
-                                }
-                            }
-                        }
+                    HeatmapHeatmapView(progress: $progress)
+                    if progress.goalDone! >= 0 {
+                        Text("You accomplished your goal today! GOOD JOB!").bold()
+                    }else{
+                        Text("You are \(-progress.goalDone!) \(habits[current!].object.plural) away from completing your goal!").bold()
                     }
                 }
                 Spacer()
@@ -135,11 +172,9 @@ struct HeatmapView: View {
             Text("Please select a habit in the habits screen by clicking on it!")
                 .bold()
                 .padding()
-                .onAppear{
-                    if current==nil{
-                        progress=nil
-                    }else{
-                        progress=Progress(progress: habits[current!].records,created:habits[current!].created)
+                .onAppear(){
+                    if !(current==nil){
+                        progress=Progress(progress: habits[current!].records,created:habits[current!].created, habit: habits[current!])
                     }
                 }
         }
