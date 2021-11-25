@@ -60,7 +60,7 @@ struct PlaceholderHabitView: View{
     var body: some View {
         Button(action: {
             do{
-                if (!(text+sampleText=="")){
+                if (!(sampleText=="" || text=="")){
                     habits+=[try Habit(
                         name: text,
                         sampleSentence: sampleText
@@ -85,7 +85,7 @@ struct PlaceholderHabitView: View{
         }.alert(isPresented: $invalidInput) {
             return Alert(
                 title: Text("Habit format invalid!"),
-                message: Text("Habits should follow the format of [action word] [amount] [object] {before/after} [time].\neg. Eat 6942 apples before 3pm"),
+                message: Text("Habits should follow the format of [action word] [amount] [object] {before/after} [time].\neg. Eat 6942 apples before 3pm\n\nSample sentences follow the format of I have [action word] {1, if your habit aims to do something more than once, or any other number} [object]\neg. I have eaten 1 apple"),
                 dismissButton: .default(Text("Got it!"))
             )
         }
@@ -111,19 +111,23 @@ struct HabitsView: View {
                 }
             }
             Divider()
-            List{
-                ForEach(habits.indices,id: \.self){ habit in
-                    HabitListItemView(
-                        habits: $habits, habit: habit,
-                        selected: $currentHabit,
-                        editing: $editing
-                    )
+            if (habits.count>0){
+                List{
+                    ForEach(habits.indices,id: \.self){ habit in
+                        HabitListItemView(
+                            habits: $habits, habit: habit,
+                            selected: $currentHabit,
+                            editing: $editing
+                        )
+                    }
+                    if (editing){
+                        PlaceholderHabitView(
+                            habits: $habits
+                        )
+                    }
                 }
-                if (editing){
-                    PlaceholderHabitView(
-                        habits: $habits
-                    )
-                }
+            }else{
+                Text("Add a habit!").bold()
             }
         }
     }

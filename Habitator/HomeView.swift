@@ -50,20 +50,6 @@ var motivation = [
     "Habwitwatow at yow suwvice, pwease make yow habwit, don't give uwp meow!",
     "That button is asking to be clicked"]
 
-func progressText( habits:inout [Habit], habitN:inout Int)->String{
-    let habit=habits[habitN]
-    let progress=Progress(progress: habit.records,created:habit.created,habit:habit)
-    var res="You have \(habit.action.past) "
-    let amount=progress.days.count>0 ? progress.days[progress.days.count-1].count : 0
-    res+=String(amount)+" "
-    if amount==1{
-        res+=habit.object.singular
-    }else{
-        res+=habit.object.plural
-    }
-    return res
-}
-
 struct HomeView: View {
     @Binding var current: Int?
     @Binding var habits: [Habit]
@@ -74,11 +60,12 @@ struct HomeView: View {
     
     var body: some View {
         if (!(current==nil)){
+            let habit=habits[current!]
             VStack{
                 Text("Home")
                     .font(.system(size: 30, weight: .bold, design: .rounded))
                     .onAppear(){
-                        text=progressText(habits: &habits,habitN: &current!)
+                        text=habit.progressText
                     }
                 Divider()
                     .padding(.bottom)
@@ -88,9 +75,9 @@ struct HomeView: View {
                     .foregroundColor(.purple)
                     .multilineTextAlignment(.center)
                 Button (action:{
+                    text=habit.progressText
                     habits[current!]
                         .records+=[ProgressRecord()]
-                    text=progressText(habits: &habits,habitN: &current!)
                 }) {
                     ZStack {
                         Text("Add Progress")

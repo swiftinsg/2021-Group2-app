@@ -1,4 +1,5 @@
 import NaturalLanguage
+import SwiftUI
 
 struct ProgressRecord:Codable{
     var time=Date()
@@ -19,10 +20,11 @@ struct Habit:Identifiable,Codable{
     var id=UUID()
     var object: ObjectWord
     var action: ActionWord
+    var timeStr: String
     var name: String
     var amount: Int
     var time: Int //seconds
-    var records: [ProgressRecord]
+    var records: [ProgressRecord]=[]
     var unit: String?=nil //unit
     var timeMode: String
     func pprint(){
@@ -90,10 +92,11 @@ extension Habit{
         }
         
         var objectName=""
-        while !(pos<words.count && words[pos].type=="Preposition"){
+        while (pos+1)<words.count && (words[pos].type=="Noun" || ((words[pos].type=="Preposition" || words[pos].type=="Adjective") && words[pos+1].type=="Noun")){
             objectName+=words[pos].word+" "
             pos+=1
         }
+        
         objectName=objectName.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         if !(amount==1){
             object=ObjectWord(singular: "...", plural: objectName)
@@ -120,7 +123,7 @@ extension Habit{
             pos+=1
         }
         
-        let timeStr=rawTime.digits
+        timeStr=rawTime.digits
         let timeunit=rawTime
             .components(separatedBy:CharacterSet.decimalDigits)
             .joined()
@@ -201,6 +204,131 @@ extension Habit{
             object.plural=sampleobject.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         }else{
             object.singular=sampleobject.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+    }
+}
+
+extension Date {
+    func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        return calendar.component(component, from: self)
+    }
+    
+    init(_ dateString:String) {
+        let dateStringFormatter = DateFormatter()
+        dateStringFormatter.dateFormat = "yyyy-MM-dd"
+        dateStringFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale
+        let date = dateStringFormatter.date(from: dateString)!
+        self.init(timeInterval:0, since:date)
+    }
+}
+
+extension Habit{ //progress extensions
+    var earliest: ProgressRecord?{
+        var earliest:ProgressRecord?
+        for progress in self.records{
+            if (earliest==nil || progress.time<self.earliest!.time){
+                earliest=progress
+            }
+        }
+        return earliest
+    }
+    var firstDay: Date?{
+        return Date(
+            "\(self.created.get(.year))-\(created.get(.month))-\(created.get(.day))"
+        )
+    }
+    var days:[[ProgressRecord]]{
+        var result:[[ProgressRecord]]=[]
+        let proccesing=firstDay
+        if var proccesing=proccesing{
+            while (proccesing<Date()){
+                result+=[between(from:proccesing,to:Date(timeInterval: 60*60*24, since: proccesing))]
+                proccesing=Date(timeInterval: 60*60*24, since: proccesing)
+            }
+            return result
+        }else{
+            return []
+        }
+    }
+    var max: Int?{
+        var max:Int?=nil
+        let days=self.days
+        for day in days{
+            if max==nil || day.count>max!{
+                max=day.count
+            }
+        }
+        return max
+    }
+    
+    var todaystart: Date{
+        let now=Date()
+        return Date(
+            "\(now.get(.year))-\(now.get(.month))-\(now.get(.day))")
+    }
+    var todayend: Date{
+        return Date(timeInterval: 60*60*24,since: self.todaystart)
+    }
+    var goalTime: Date{
+        return Date(timeInterval: TimeInterval(self.time),since: todaystart)
+    }
+    var goalTimes: [ProgressRecord]{
+        var goalTimes:[ProgressRecord]=[]
+        if self.timeMode=="before"{
+            goalTimes=between(from:todaystart,to:goalTime)
+        }else{
+            goalTimes=between(from:goalTime,to:todayend)
+        }
+        return goalTimes
+    }
+    var goalDone:Int{
+        return goalTimes.count-self.amount
+    }
+    var goalCanDone: String?{
+        if goalDone>=0{
+            return nil
+        }else{
+            if (self.timeMode=="before"){
+                return "late"
+            }else if (self.timeMode=="after"){
+                return "early"
+            }
+        }
+        return nil
+    }
+    
+    func between(from:Date,to:Date)->[ProgressRecord]{
+        var result:[ProgressRecord]=[]
+        for entry in records{
+            if (entry.time>from && entry.time<to){
+                result+=[entry]
+            }
+        }
+        return result
+    }
+}
+
+extension Habit{
+    var progressText:String{
+        var res="You have \(self.action.past) "
+        let amount=self.days.count>0 ? self.days[self.days.count-1].count : 0
+        res+=String(amount)+" "
+        if amount==1{
+            res+=self.object.singular
+        }else{
+            res+=self.object.plural
+        }
+        return res
+    }
+    var goalText:String{
+        if goalDone>=0{
+            return "You accomplished your goal today! GOOD JOB!"
+        }else{
+            if goalCanDone=="late"{
+                return "You were too late to complete the goal qwq... You were \(-goalDone) \(-goalDone==1 ? object.singular : object.plural) away!!!"
+            }else{
+                return "Start completing your goal at \(timeStr)!!"
+            }
         }
     }
 }
