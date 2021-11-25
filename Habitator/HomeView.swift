@@ -95,7 +95,7 @@ struct HomeView: View {
                     .onReceive(timer) { _ in
                         motivCount = Int.random(in: 0..<motivation.count)
                     }
-                    .padding()
+                    .padding().multilineTextAlignment(.center)
             }
         }else{
             Text("Please select a habit in the habits screen by clicking on it!")

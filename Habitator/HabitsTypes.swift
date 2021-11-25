@@ -310,7 +310,7 @@ extension Habit{ //progress extensions
 
 extension Habit{
     var progressText:String{
-        var res="You have \(self.action.past) "
+        var res="You \(self.action.past) "
         let amount=self.days.count>0 ? self.days[self.days.count-1].count : 0
         res+=String(amount)+" "
         if amount==1{

@@ -89,7 +89,11 @@ struct HeatmapView: View {
                     Text("Progress that you enter will be shown here!").bold().padding(.horizontal)
                 }else{
                     HeatmapHeatmapView(habit:$habits[current!])
-                    Text(habit.goalText).bold().padding(.horizontal)
+                        .padding(.horizontal)
+                    Text(habit.goalText)
+                        .bold()
+                        .padding(.horizontal)
+                        .multilineTextAlignment(.center)
                 }
                 Spacer()
             }
