@@ -20,7 +20,7 @@ struct Habit:Identifiable,Codable{
     var id=UUID()
     var object: ObjectWord
     var action: ActionWord
-    var timeStr: String
+    var rawTime: String
     var name: String
     var amount: Int
     var time: Int //seconds
@@ -117,13 +117,13 @@ extension Habit{
             pos+=1
         }
         
-        var rawTime=""
+        rawTime=""
         while pos<words.count{
             rawTime+=words[pos].word
             pos+=1
         }
         
-        timeStr=rawTime.digits
+        let timeStr=rawTime.digits
         let timeunit=rawTime
             .components(separatedBy:CharacterSet.decimalDigits)
             .joined()
@@ -327,7 +327,7 @@ extension Habit{
             if goalCanDone=="late"{
                 return "You were too late to complete the goal qwq... You were \(-goalDone) \(-goalDone==1 ? object.singular : object.plural) away!!!"
             }else{
-                return "Start completing your goal at \(timeStr)!!"
+                return "Start completing your goal at \(rawTime)!!"
             }
         }
     }
