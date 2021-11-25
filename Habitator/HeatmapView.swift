@@ -86,10 +86,10 @@ struct HeatmapView: View {
                     .font(.system(size: 30, weight: .bold))
                 Divider()
                 if (habit.days.count==0){
-                    Text("Progress that you enter will be shown here!").bold().padding(.leading,.trailing)
+                    Text("Progress that you enter will be shown here!").bold().padding(.horizontal)
                 }else{
                     HeatmapHeatmapView(habit:$habits[current!])
-                    Text(habit.goalText).bold().padding(.leading,.trailing)
+                    Text(habit.goalText).bold().padding(.horizontal)
                 }
                 Spacer()
             }
