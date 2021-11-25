@@ -127,7 +127,8 @@ struct HabitsView: View {
                     }
                 }
             }else{
-                Text("Add a habit!").bold()
+                Text("Add a habit!").bold().padding(.top)
+                Spacer()
             }
         }
     }
