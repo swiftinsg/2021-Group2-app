@@ -343,7 +343,7 @@ extension Habit{
     var progressText:String{
         var res="You \(self.action.past) "
         let amount=self.days.count>0 ? self.days[self.days.count-1].count : 0
-        res+=String(amount)+" "
+        res+=String(amount)+(self.unit ?? " ")+" "
         if amount==1{
             res+=self.object.singular
         }else{
