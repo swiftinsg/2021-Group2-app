@@ -71,28 +71,38 @@ extension Habit{
             return true
         }
         
+        // ACTION WORD
         var pos=0
-        if words[pos].type=="Verb"{
-            action=ActionWord(past: "...", present: words[pos].word.lowercased())
-        }else{throw "first word not verb"}
+        var actionWord=""
+        while words[pos].word.digits==""{
+            actionWord+=words[pos].word+" "
+            pos+=1
+        }
+        action=ActionWord(past: "...", present: actionWord.trimmingCharacters(in: .whitespacesAndNewlines).lowercased())
         
-        pos+=1
+        // AMOUNT
         if words[pos].type=="Number"{
             amount=Int(words[pos].word)!
-        }else if words[pos].type=="OtherWord"{
+        }else if words[pos].type=="OtherWord" || words[pos].type=="Noun"{
+            print(words[pos])
             amount=Int(words[pos].word.digits)!
             unit=words[pos].word
                 .components(separatedBy:CharacterSet.decimalDigits)
                 .joined()
-        }else{throw "invalid amount"}
+        }else{
+            print("invalid amount \(words[pos])")
+            throw "invalid amount"
+        }
         
+        // FILTER "of" (eat 6kg *of* rice by 2am)
         pos+=1
-        if words[pos].type=="Preposition"{
+        if words[pos].type=="Preposition" && !(words[pos].word=="before" || words[pos].word=="after"){
             pos+=1
         }
         
+        // OBJECT (optional)
         var objectName=""
-        while (pos+1)<words.count && (words[pos].type=="Noun" || ((words[pos].type=="Preposition" || words[pos].type=="Adjective") && words[pos+1].type=="Noun")){
+        while (pos+1)<words.count && (words[pos].type=="Noun" || (words[pos].type=="Preposition" && words[pos+1].type=="Noun" && !(words[pos].word=="before" || words[pos].word=="after"))){
             objectName+=words[pos].word+" "
             pos+=1
         }
@@ -104,25 +114,32 @@ extension Habit{
             object=ObjectWord(singular: objectName, plural: "...")
         }
         
-        if words[pos].type=="Preposition"{
+        // PREPOSITION (by, before, after)
+        if words[pos].type=="Preposition" || words[pos].type=="OtherWord"{
             if words[pos].word=="by" || words[pos].word=="before"{
                 timeMode="before"
             }else if words[pos].word=="after"{
                 timeMode="after"
             }else{throw "invalid preposition as time constraint"}
-        }else{throw "no time constraint"}
+        }else{
+            print("no time constraint \(words[pos])")
+            throw "no time constraint"
+        }
         pos+=1
         
+        // filter "every"
         if words[pos].type=="Determiner"{
             pos+=1
         }
         
+        //get the time string
         rawTime=""
         while pos<words.count{
             rawTime+=words[pos].word
             pos+=1
         }
         
+        //proccess time
         let timeStr=rawTime.digits
         let timeunit=rawTime
             .components(separatedBy:CharacterSet.decimalDigits)
@@ -143,6 +160,7 @@ extension Habit{
             let mins=fullTimeInt-(hours*100)
             time=((hours*60)+mins)*60
         }
+        //HANDLE AM/PM
         time+=offset
         
         self.name=name
@@ -166,12 +184,12 @@ extension Habit{
         }
         
         pos=0
-        if words[pos].type=="Pronoun"{
+        if words[pos].type=="Pronoun" || words[pos].type=="OtherWord"{
             pos+=1
         }
         
         var verb=""
-        while words[pos].type=="Verb"{
+        if words[pos].type=="Verb" || words[pos].type=="OtherWord"{
             verb+=words[pos].word+" "
             pos+=1
         }
@@ -181,29 +199,42 @@ extension Habit{
         var sampleamount = -1
         if words[pos].type=="Number"{
             sampleamount=Int(words[pos].word)!
-        }else if words[pos].type=="OtherWord"{
+        }else if words[pos].type=="OtherWord" || words[pos].type=="Noun"{
+            print(words[pos])
             sampleamount=Int(words[pos].word.digits)!
-        }else{throw "invalid amount for sample sentence"}
+        }else{
+            print("invalid amount for sample sentence")
+            throw "invalid amount for sample sentence"
+        }
         
         if (sampleamount==1) == (amount==1){
+            print("both sample and name name have same form")
             throw "both sample and name name have same form"
         }
         
         pos+=1
-        if words[pos].type=="Preposition"{
-            pos+=1
-        }
-        
-        var sampleobject=""
-        while pos<words.count{
-            sampleobject+=words[pos].word+" "
-            pos+=1
-        }
-        
-        if amount==1{
-            object.plural=sampleobject.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        if pos<words.count{
+            if words[pos].type=="Preposition"{
+                pos+=1
+            }
+            
+            var sampleobject=""
+            while pos<words.count{
+                sampleobject+=words[pos].word+" "
+                pos+=1
+            }
+            
+            if amount==1{
+                object.plural=sampleobject.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+            }else{
+                object.singular=sampleobject.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+            }
         }else{
-            object.singular=sampleobject.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+            if amount==1{
+                object.plural=""
+            }else{
+                object.singular=""
+            }
         }
     }
 }
