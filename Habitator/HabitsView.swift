@@ -74,20 +74,31 @@ struct PlaceholderHabitView: View{
         }){
             VStack{
                 TextField(
-                    "Type To Enter",
+                    "Habit name",
                     text: $text
                 ).opacity(0.5)
                 TextField(
-                    "Sample action text",
+                    "Action text",
                     text: $sampleText
                 ).opacity(0.5)
             }
         }.alert(isPresented: $invalidInput) {
             return Alert(
                 title: Text("Habit format invalid!"),
-                message: Text("Habits should follow the format of '[action word] [amount] [object] {before/after} [time]'.\neg. Eat 6942 apples before 3pm\n\nSample action sentences follow the format of 'I have [action word] {1, if your habit aims to do something more than once, or any other number} [object]'\neg. I have eaten 1 apple"),
+                message: Text("Habit names should follow the format of '[action word] [amount] [object] {before/after} [time]'.\neg. Eat 6942 apples before 3pm\n\nAction sentences follow the format of 'I have [action word] {1, if your habit aims to do something more than once, or any other number} [object]'\neg. I have eaten 1 apple"),
                 dismissButton: .default(Text("Got it!"))
             )
+        }
+    }
+}
+
+struct SampleHabitView: View{
+    @State var name:String
+    @State var sample:String
+    var body: some View{
+        VStack{
+            Text("Name: \(name)")
+            Text("Action sentence: \(sample)")
         }
     }
 }
@@ -97,6 +108,7 @@ struct HabitsView: View {
     @Binding var currentHabit: Int?
     @State var placeholderText=""
     @State var editing=false
+    @State private var showingSamples=false
     var body: some View {
         VStack{
             ZStack{
@@ -130,6 +142,28 @@ struct HabitsView: View {
                        habits: $habits
                    )
                 }
+            }
+            
+            if editing{
+                Button("Confused? See samples"){
+                    showingSamples.toggle()
+                }.sheet(isPresented: $showingSamples) {
+                    VStack{
+                        HStack{
+                            Button("Dismiss"){
+                                showingSamples.toggle()
+                            }.padding()
+                            Spacer()
+                        }
+                        Divider()
+                        List{
+                            SampleHabitView(name: "Eat 25 muffins by 2pm",sample: "I ate 1 muffin")
+                            SampleHabitView(name: "Run 2km by 2am",sample: "I ran 1km")
+                            SampleHabitView(name: "Push-up 100 times after 2pm",sample: "I pushed 1 time")
+                        }
+                        Spacer()
+                    }
+                }.padding(.bottom)
             }
         }
     }
